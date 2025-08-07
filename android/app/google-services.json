@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "941280776708",
+    "project_id": "tubebook-8437e",
+    "storage_bucket": "tubebook-8437e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:941280776708:android:5c93440d07229943a61b51",
+        "android_client_info": {
+          "package_name": "com.etubebook.finaltubebook"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBeCRtGmkZlFqrcQcgQn-8o9HzXNqMpI5M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:941280776708:android:cb69c67cf0125e09a61b51",
+        "android_client_info": {
+          "package_name": "com.tubebook.tubebook"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBeCRtGmkZlFqrcQcgQn-8o9HzXNqMpI5M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

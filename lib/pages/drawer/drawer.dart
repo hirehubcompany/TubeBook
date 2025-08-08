@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:tubebook/pages/homepage/mypurchases/mypurchases.dart';
 
+import '../profile/homepage.dart';
+
 class MyDrawer extends StatelessWidget {
 
 
@@ -26,14 +28,7 @@ class MyDrawer extends StatelessWidget {
             ),
           ),
 
-          // Home
-          ListTile(
-            leading: Icon(Icons.home),
-            title: Text('Home'),
-            onTap: () {
-              Navigator.pushNamed(context, '/home');
-            },
-          ),
+
 
           // My Purchases
           ListTile(
@@ -46,12 +41,16 @@ class MyDrawer extends StatelessWidget {
             },
           ),
 
+
+
           // Profile
           ListTile(
             leading: Icon(Icons.account_circle),
             title: Text('Profile'),
             onTap: () {
-              Navigator.pushNamed(context, '/profile');
+              Navigator.push(context, MaterialPageRoute(builder: (context){
+                return UserProfilePage();
+              }));
             },
           ),
 

@@ -32,7 +32,7 @@ class _RegisterPageState extends State<RegisterPage> {
     if (!_formKey.currentState!.validate()) return;
     if (!_agreed) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('You must agree to the terms.')),
+        const SnackBar(content: Text('You must agree to the terms.')),
       );
       return;
     }
@@ -55,7 +55,7 @@ class _RegisterPageState extends State<RegisterPage> {
       });
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Registration successful!')),
+        const SnackBar(content: Text('Registration successful!')),
       );
 
       Navigator.pop(context);
@@ -68,8 +68,14 @@ class _RegisterPageState extends State<RegisterPage> {
     }
   }
 
-  Widget _buildTextField(String label, IconData icon, Function(String) onChanged,
-      FocusNode focusNode, FocusNode? nextFocus, {TextInputType inputType = TextInputType.text}) {
+  Widget _buildTextField(
+      String label,
+      IconData icon,
+      Function(String) onChanged,
+      FocusNode focusNode,
+      FocusNode? nextFocus, {
+        TextInputType inputType = TextInputType.text,
+      }) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: TextFormField(
@@ -77,15 +83,24 @@ class _RegisterPageState extends State<RegisterPage> {
         focusNode: focusNode,
         decoration: InputDecoration(
           labelText: label,
-          prefixIcon: Icon(icon),
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+          labelStyle: const TextStyle(fontWeight: FontWeight.w500),
+          prefixIcon: Icon(icon, color: Colors.blueAccent),
+          filled: true,
+          fillColor: Colors.grey[100],
+          contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide.none,
+          ),
         ),
         onChanged: onChanged,
-        textInputAction: nextFocus != null ? TextInputAction.next : TextInputAction.done,
+        textInputAction:
+        nextFocus != null ? TextInputAction.next : TextInputAction.done,
         onFieldSubmitted: (_) {
           if (nextFocus != null) FocusScope.of(context).requestFocus(nextFocus);
         },
-        validator: (value) => value == null || value.isEmpty ? 'Enter $label' : null,
+        validator: (value) =>
+        value == null || value.isEmpty ? 'Enter $label' : null,
       ),
     );
   }
@@ -98,18 +113,35 @@ class _RegisterPageState extends State<RegisterPage> {
         focusNode: isConfirm ? _confirmFocusNode : _passwordFocusNode,
         decoration: InputDecoration(
           labelText: isConfirm ? 'Confirm Password' : 'Password',
-          prefixIcon: Icon(Icons.lock),
+          labelStyle: const TextStyle(fontWeight: FontWeight.w500),
+          prefixIcon: const Icon(Icons.lock, color: Colors.blueAccent),
           suffixIcon: IconButton(
-            icon: Icon(_obscurePassword ? Icons.visibility : Icons.visibility_off),
-            onPressed: () => setState(() => _obscurePassword = !_obscurePassword),
+            icon: Icon(
+              _obscurePassword ? Icons.visibility : Icons.visibility_off,
+              color: Colors.grey,
+            ),
+            onPressed: () =>
+                setState(() => _obscurePassword = !_obscurePassword),
           ),
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+          filled: true,
+          fillColor: Colors.grey[100],
+          contentPadding:
+          const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide.none,
+          ),
         ),
-        onChanged: (val) => isConfirm ? _confirmPassword = val : _password = val,
+        onChanged: (val) =>
+        isConfirm ? _confirmPassword = val : _password = val,
         validator: (value) {
           if (value == null || value.isEmpty) return 'Enter password';
-          if (!isConfirm && value.length < 6) return 'Password must be at least 6 characters';
-          if (isConfirm && value != _password) return 'Passwords do not match';
+          if (!isConfirm && value.length < 6) {
+            return 'Password must be at least 6 characters';
+          }
+          if (isConfirm && value != _password) {
+            return 'Passwords do not match';
+          }
           return null;
         },
       ),
@@ -129,35 +161,95 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[50],
       appBar: AppBar(
-        title: Text('Register to Sell Channel'),
+        elevation: 0,
+        backgroundColor: Colors.blueAccent,
+        title: const Text(
+          'Register to Sell Channel',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        centerTitle: true,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              _buildTextField('Full Name', Icons.person, (val) => _fullName = val, _nameFocusNode, _emailFocusNode),
-              _buildTextField('Email', Icons.email, (val) => _email = val, _emailFocusNode, _passwordFocusNode, inputType: TextInputType.emailAddress),
-              _buildPasswordField(isConfirm: false),
-              _buildPasswordField(isConfirm: true),
-              _buildTextField('Phone Number', Icons.phone, (val) => _phone = val, _phoneFocusNode, null, inputType: TextInputType.phone),
-              CheckboxListTile(
-                title: Text('I agree to the Terms & Conditions'),
-                value: _agreed,
-                onChanged: (val) => setState(() => _agreed = val ?? false),
-                controlAffinity: ListTileControlAffinity.leading,
+        child: Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          elevation: 4,
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  const Icon(Icons.storefront,
+                      size: 60, color: Colors.blueAccent),
+                  const SizedBox(height: 12),
+                  const Text(
+                    "Create Your Seller Account",
+                    style:
+                    TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    "Fill in your details below to get started",
+                    style: TextStyle(color: Colors.grey[600]),
+                  ),
+                  const SizedBox(height: 20),
+                  _buildTextField('Full Name', Icons.person,
+                          (val) => _fullName = val, _nameFocusNode, _emailFocusNode),
+                  _buildTextField(
+                      'Email',
+                      Icons.email,
+                          (val) => _email = val,
+                      _emailFocusNode,
+                      _passwordFocusNode,
+                      inputType: TextInputType.emailAddress),
+                  _buildPasswordField(isConfirm: false),
+                  _buildPasswordField(isConfirm: true),
+                  _buildTextField(
+                      'Phone Number',
+                      Icons.phone,
+                          (val) => _phone = val,
+                      _phoneFocusNode,
+                      null,
+                      inputType: TextInputType.phone),
+                  const SizedBox(height: 8),
+                  CheckboxListTile(
+                    title: const Text(
+                      'I agree to the Terms & Conditions',
+                      style: TextStyle(fontSize: 14),
+                    ),
+                    value: _agreed,
+                    onChanged: (val) =>
+                        setState(() => _agreed = val ?? false),
+                    controlAffinity: ListTileControlAffinity.leading,
+                  ),
+                  const SizedBox(height: 16),
+                  _isLoading
+                      ? const CircularProgressIndicator()
+                      : SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton.icon(
+                      icon: const Icon(Icons.person_add, size: 18),
+                      label: const Text('Register',
+                          style: TextStyle(fontSize: 16)),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blueAccent,
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 14),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                      onPressed: _register,
+                    ),
+                  ),
+                ],
               ),
-              const SizedBox(height: 16),
-              _isLoading
-                  ? CircularProgressIndicator()
-                  : ElevatedButton.icon(
-                icon: Icon(Icons.person_add),
-                label: Text('Register'),
-                onPressed: _register,
-              ),
-            ],
+            ),
           ),
         ),
       ),

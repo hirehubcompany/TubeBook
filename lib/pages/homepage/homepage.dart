@@ -53,13 +53,7 @@ class _HomepageState extends State<Homepage> {
             ),
             const SizedBox(height: 24),
 
-            ElevatedButton(
-                onPressed: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context){
-                    return AddHomepage();
-                  }));
-                },
-                child: Text('Add Channel')),
+
 
             // Section Title
             Row(
